@@ -62,12 +62,12 @@ Class Tablet {
     // 출력기능만 사용할 수 있는 Screen
     printable print = new Screen();
     print.print("this is print function in Screen");
-    print.touch(); // Error 이 스크린은 touch 기능을 사용할 수 없다.
+    // print.touch(); // Error 이 스크린은 touch 기능을 사용할 수 없다.
 
     // touch만 사용할 수 있는 Screen
     touchable touch = new Screen();
     touch.touch();
-    touch.print("I touched the screen"); // Error 이 스크린은 출력을 사용할 수 없다.
+    // touch.print("I touched the screen"); // Error 이 스크린은 출력을 사용할 수 없다.
 
   }
 }
