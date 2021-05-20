@@ -1,29 +1,30 @@
 ---
 layout: post
-title: "상속(Inheritance)"
+title: "상속(Inheritance) - 1"
 ---
 
 ## 1. 상속?
 
 * 의미: 물려준다라는 개념을 그대로 사용된다.
-* 프로그래밍에서의 상속은? 하위 클래스가 상위 클래스의 변수, 메소드 등을 물려받아서 사용하는 것을 의미.
+* 프로그래밍에서의 상속은? 서브 클래스가 슈퍼 클래스의 변수, 메소드 등을 물려받아서 사용하는 것을 의미.
 
 ## 2. 왜 사용하는가?
 
-* 코드가 간결해진다.
-* 확장성이 용이하다.
-* 재사용성이 용이하다.
+* 코드가 간결화
+* 유지보수 용이
+* 재사용성이 향상
 
 ## 3. 상속의 단점
 
-* 하위 클래스는 상위 클래스에 의존성이 높다.
-* 상위 클래스가 수정되었을 시 하위 클래스의 코드도 수정되어야 할 경우가 있다.
+* 서브 클래스는 슈퍼 클래스에 의존성이 높다.
+* 슈퍼 클래스가 수정되었을 시 서브 클래스의 코드도 수정되어야 할 경우가 있다.
 
-## 4. JAVA에서의 상속
+## 4. JAVA에서의 상속 
 
-* Java에서 상속은 클래스와 인터페이스를 상속받을 수 있다.
-  - 클래스는 extends 키워드로 상속된다.
-  - 하나의 클래스에 상위 클래스는 하나의 클래스만 상속된다.
+* Java에서 상속의 키워드는 extends
+  - 클래스는 클래스를 상속받고, 인터페이스는 인터페이스를 상속받을 수 있다.
+  - 하나의 서브 클래스는 하나의 슈퍼 클래스만 상속 받을 수 있다. (다중상속 불가)
+  - 인터페이스는 다른 여러개의 인터페이스를 상속 받을 수 있다. (인터페이스의 다중상속 가능)
 
   ```
     class Human {
@@ -35,202 +36,36 @@ title: "상속(Inheritance)"
     }
   ```
 
-  - 인터페이스는 implements 키워드로 상속(확장)된다.
-  - 인터페이스는 하나의 클래스에 여러가지 인터페이스를 상속할 수 있다.
-  - 인터페이스는 인터페이스 끼리도 상속이 가능하다.
-
   ```
     interface ITest1 {}
     interface ITest2 {}
 
-    interface ITest3 implements ITest1, ITest2
-    
-    class Human implements ITest1, ITest2 {
+    interface ITest3 extends ITest1, ITest2 {
 
-    }    
+    }
   ```
 
-* 하위 클래스는 상위 클래스의 메서드를 재정의하여 사용 가능하다.
-  - 재정의(Overriding)을 통해 기능을 다시 정의(수정)하여 사용이 가능하다.
+* 상속에서의 접근제어자 차이점
 
+  | |default|private|protected|public|
+  |---|---|---|---|---|
+  |같은 패키지내의 다른 클래스|O|X|O|O|
+  |다른 패키지내의 다른 클래스|X|X|X|O|
+  |같은 패키지내의 서브 클래스|O|X|O|O|
+  |다른 패키지내의 서브 클래스|X|X|O|O|
 
-  ```
-    class Animal {
-      public void eat() {
-        // 동물은 자체로 영양소를를 생성하지 못하고 외부의 음식에서 영양소를 뽑아내는 특징이 있다. 그러므로 먹는다.
-        System.out.println("영양소를 생성.");
-      }
-    }
+* this, super
+  - this: 현재 호출되는 객체를 참조.
+  - super: 현재 호출되는 객체의 슈퍼클래스를 참조.
 
-    class Predator extends Animal {
-      @Override
-      public void eat() {
-          // 육식동물은 고기를 먹어서 영향소를 보충한다.
-          System.out.println("고기를 먹는다.");
-          super.eat();
-      }
+* 오버라이딩: 슈퍼클래스에 존재하는 메소드를 서브클래스에서 재정의하는 것을 의미.
+  - 슈퍼 클래스에서 정의되어있는 동작을 무시하고 새롭게 정의내린 동작을 하도록 재정의하는 것.
+  - 오버라이딩은 상속관계에서만 사용 가능.
+  - 서브클래스에서 재정의되는 메소드는 슈퍼클래스의 메소드와 동일한 이름, 동일한 인자 타입 및 개수, 동일한 리턴타입 이여야한다.
+  - 오버라이딩 되었으나 슈퍼 클래스의 메소드를 접근하고 싶으면 super 로 슈퍼 클래스를 접근하여 메소드 호출.
 
-      public void hunting() {
-        System.out.println("사냥한다");
-      }
-    }
+* 오버로딩: 같은 클래스 내 혹은 슈퍼 클래스에 존재하는 메소드의 동일한 이름으로 중복하여 작성하는 것을 의미.
+  - 같은 이름의 메소드를 다양한 형태로 정의하여 편리하게 사용을 위한 목적.
+  - 메소드의 인자 타입이 다르거나, 인자의 개수가 달라야한다.
 
-    class HerbivorousAnimal extends Animal {
-        @Override
-        public void eat() {
-            // 초식동물은 풀, 야채, 과일 등을 먹으면서 영양소를 보충한다.
-            System.out.println("풀 뜯어 먹는다.");
-            super.eat();
-        }
-    }
-
-    public class Polymophism {
-      
-      public static void main(String[] args) throws Exception {
-        // 초식동물인 소든 육식동물인 호랑이든 전부 동물이기에 동물 타입으로 인스턴스를 생성했다.
-        Animal cow = new HerbivorousAnimal();
-        Animal tiger = new Predator();
-
-        // 선언된 타입은 동물이고 두 동물이 먹는 동작을 호출했다.
-        System.out.println("소가 먹는다");
-        cow.eat();
-        System.out.println("-----------");
-        System.out.println("호랑이가 먹는다");
-        tiger.eat();
-
-        // 하지만 일반적인 동물의 타입으로 선언했기 때문에
-        // tiger.hunting(); [Error] 육식동물인 호랑이는 사냥을 할 수 있지만, 일반 동물의 타입으로 선언되었을 때는 사냥의 특징을 나타낼 수가 없어서 사용할 수 없다.
-      }
-    }
-
-    결과:
-    소가 먹는다
-    풀 뜯어 먹는다.
-    영양소를 생성.
-    -----------
-    호랑이가 먹는다
-    고기를 먹는다.
-    영양소를 생성.
-  ```
-
-* Interface를 통한 다형성
-  - 인터페이스를 구현을 통하여 특징별로 다형성을 이룰 수 있다.
-  - 예시 1) 동물은 먹을 수 있다. 그 중 포유류는 수유가 가능하고, 양서류는 수영이 가능하다. 다만, 포유류 중에 수영이 가능한 해양포유류가 있다.
-
-  ```
-    interface Iedible {
-        void eat();
-    }
-
-    interface ILactating {
-        void lactating();
-    }
-
-    interface Iswimmable {
-        void swimming();
-    }
-
-    class Mammalia implements Iedible, ILactating {
-
-        public void eat() {
-            // 포유류는 동물이기에 먹어서 영양소를 보충한다.
-            System.out.println("포유류가 먹는다.");
-        }
-
-        public void lactating() {
-            // 포유류의 가장 큰 특징은 수유가 가능하다는 점이다.
-            System.out.println("수유를 하여 자식에게 먹인다.");
-        }
-    }
-
-    class MarineMammals extends Mammalia implements Iswimmable {
-      public void swimming() {
-          // 해양 포유류는 포유류지만 수영이 가능하다.
-          System.out.println("해양 포유류 수영한다.");
-      }
-    }
-
-    class Amphibia implements Iedible, Iswimmable {
-        public void eat() {
-            // 양서류도 먹는다.
-            System.out.println("양서류가 먹는다.");
-        }
-
-        public void swimming() {
-            // 양서류는 수영이 가능하다.
-            System.out.println("수영 한다");
-        }
-    }
-
-    public class Polymophism {
-      
-      public static void main(String[] args) throws Exception {
-        Iedible cow = new Mammalia();
-        Iedible frog = new Amphibia();
-
-        Iswimmable frog2 = new Amphibia();
-        Iswimmable otariidae = new MarineMammals();
-
-        // 소가 먹는다.
-        cow.eat();
-        // 개구리가 먹는다.
-        frog.eat();
-
-        System.out.println("---------------------");
-
-        // 개구리가 수영한다.
-        frog2.swimming();
-        // 물개가 수영한다.
-        otariidae.swimming();
-      }
-    }
-
-    결과:
-    포유류가 먹는다.
-    양서류가 먹는다.
-    ---------------------
-    양서류 수영 한다
-    해양 포유류 수영한다.
-  ```
-
-* 다형성은 어디에 왜 사용되는가?
-  - 여러 형태(타입)의 객체들을 한가지의 형태로 사용하여 관리할 수 있다.
-  <!-- - 상속 및 인터페이스 구현을 통하여 확장성이 용이하고, 이를 통한 관리를 하며, 결합도를 낮출 수 있다. -->
-
-  - 예제 1) 나는 먹이를 주고 동물들은 먹이를 먹는다. 라는 기능을 작성해보자.
-    + 아래의 상황에서 육식동물에 대해 직접 먹이를 주고, 초식동물에 대해 직접 먹이를 준다면, 먹이를 주는 행위 Feed에 대하여 두 가지 타입의 메소드가 만들어 질 것이다.
-    + 이런 같이 여러개의 타입을 하나의 동일한 분류의 타입으로 정의하여 공통된 하나의 기능으로 동작할 수 있는 장점이 있다.
-    
-  ```
-    위의 예제 중 Animal 클래스와 predator, HerbivorousAnimal 클래스를 사용한다.
-
-    public class Polymophism {
-
-      static string feed(Animal ani) {
-        // 나는 먹이를 주고,
-        System.out.println("먹이를 주다.")
-        // 대상이 되는 동물 ani는 먹이를 먹는다.
-        return ani.eat();
-      }
-      
-      public static void main(String[] args) throws Exception {
-        Animal cow = new HerbivorousAnimal();
-        Animal cat = new Predator();
-
-        feed(cow);
-        System.out.println("---------------------");
-        feed(cat);
-      }
-    }
-
-    결과:
-    먹이를 주다.
-    풀 뜯어 먹는다.
-    영양소를 생성.
-    ---------------------
-    먹이를 주다.
-    고기를 먹는다.
-    영양소를 생성.
-  ```
-
-[참조] [생활코딩 - JAVA 다형성 강의 1편](https://youtu.be/WijVClKt5Z8)
+[참조] [생활코딩 - JAVA 상속 강의 1편](https://youtu.be/tsgJEm-pq2E)
