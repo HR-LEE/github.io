@@ -30,15 +30,16 @@ github:
 plugins: [jekyll-paginate, jekyll-gist]
 
 collections:
-  categories:
+  posts_open_tutorials_java:
     output: true
     sort_by: order
+    permalink: /:collection/:year-:month-:day-:title.
 
 default:
   -
     scope:
       path: ''
-      type: categories
+      type: posts_open_tutorials_java
     value:
       layout: page
-      dynamic_title: true
+      # dynamic_title: true
