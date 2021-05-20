@@ -27,22 +27,16 @@ title: "상속(Inheritance) - 1"
   - 인터페이스는 다른 여러개의 인터페이스를 상속 받을 수 있다. (인터페이스의 다중상속 가능)
 
   ```
-    class Human {
+    class Human {}
 
-    }
-
-    class Student extends Human {
-
-    }
+    class Student extends Human {}
   ```
 
   ```
     interface ITest1 {}
     interface ITest2 {}
 
-    interface ITest3 extends ITest1, ITest2 {
-
-    }
+    interface ITest3 extends ITest1, ITest2 {}
   ```
 
 * 상속에서의 접근제어자 차이점
